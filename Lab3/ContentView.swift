@@ -58,12 +58,12 @@ struct RoundedRectanglesStandard: View {
 }
 
 struct EmojiTap: View {
-    @State private var emoji: Text = 👎
+    @State private var emoji: Text = Text("👍")
     
     var body: some View {
-        Text(emoji)
+        emoji
             .onTapGesture(count: 1) {
-                emoji = 👍
+                emoji = Text("👎")
             }
     }
 }

@@ -1,70 +1,50 @@
-//
-//  ContentView.swift
-//  Lab3
-//
-//  Created by Asher Antrim on 9/6/24.
-//
-
 import SwiftUI
-
 
 private struct Resturant: Identifiable {
     var name: String
     var id: String { name }
 }
+
 private let restaurants: [Resturant] = [
-    Resturant(name: "McDonalds's"),
+    Resturant(name: "McDonald's"),
     Resturant(name: "Arby's"),
     Resturant(name: "Wendy's"),
     Resturant(name: "Pizza Hut"),
-    Resturant(name: "Culver's")]
-    
+    Resturant(name: "Culver's")
+]
+
 struct ResturantView: View {
+    var name: String
+    @State private var isFavorite: Bool = false
+    
     var body: some View {
-        ForEach(restaurants) { Resturant in
-            ZStack {
-                RoundedRectanglesStandard()
-                HStack {
-                    Text(Resturant.name)
-                        .font(.title)
-                        .foregroundColor(.white)
-                    Spacer()
-                    EmojiTap()
-                }
-                .padding()
+        ZStack {
+            RoundedRectangle(cornerRadius: 25)
+                .fill(Color.blue)
+            HStack {
+                Text(name)
+                    .font(.title)
+                    .foregroundColor(.white)
+                Spacer()
+                Text(isFavorite ? "👍" : "👎")
+                    .font(.title)
+                    .onTapGesture {
+                        isFavorite.toggle()
+                    }
             }
+            .padding()
         }
     }
 }
-
-
-
 
 struct ContentView: View {
     var body: some View {
         VStack {
-            ResturantView()
+            ForEach(restaurants) { restaurant in
+                ResturantView(name: restaurant.name)
+            }
         }
         .padding()
-    }
-}
-
-struct RoundedRectanglesStandard: View {
-    var body: some View {
-        RoundedRectangle
-            .init(cornerRadius: 25)
-            .fill(Color.blue)
-    }
-}
-
-struct EmojiTap: View {
-    @State private var emoji: Text = Text("👍")
-    
-    var body: some View {
-        emoji
-            .onTapGesture(count: 1) {
-                emoji = Text("👎")
-            }
     }
 }
 

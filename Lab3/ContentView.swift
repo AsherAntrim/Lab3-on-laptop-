@@ -28,11 +28,11 @@ struct ResturantView: View {
                 Spacer()
                 Text(isFavorite ? "👍" : "👎")
                     .font(.title)
-                    .onTapGesture {
-                        isFavorite.toggle()
-                    }
             }
             .padding()
+        }
+        .onTapGesture {
+            isFavorite.toggle()
         }
     }
 }
